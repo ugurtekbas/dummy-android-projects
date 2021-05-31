@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">NewGithubUser</string>
+    <string name="generic_error">Something went wrong. Please try again.</string>
+</resources>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="Choose Wisely"
+        android:layout_margin="10dp"
+        />
+
+    <Button
+        android:id="@+id/btnUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="To User's Profile"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textAllCaps="false"
+        />
+
+    <Button
+        android:id="@+id/btnRepo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="To Repo"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textAllCaps="false"
+        />
+
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        app:layout_constraintTop_toBottomOf="@+id/btnUser"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textAllCaps="false"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
