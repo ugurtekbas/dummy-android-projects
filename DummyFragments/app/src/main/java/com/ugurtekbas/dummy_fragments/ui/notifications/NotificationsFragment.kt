@@ -16,10 +16,15 @@ class NotificationsFragment : Fragment() {
 
     private lateinit var notificationsViewModel: NotificationsViewModel
 
+    companion object {
+        val TAG = NotificationsFragment::class.simpleName
+        fun newInstant() = NotificationsFragment()
+    }
+
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         notificationsViewModel =
                 ViewModelProvider(this).get(NotificationsViewModel::class.java)
@@ -29,42 +34,42 @@ class NotificationsFragment : Fragment() {
             textView.text = it
         })
 
-        Log.w("Fragment A: ", "onCreateView")
+        Log.w("NotificationsFragment: ", "onCreateView")
         return root
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        Log.w("Fragment A: ", "onAttach")
+        Log.w("NotificationsFragment: ", "onAttach")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.w("Fragment A: ", "onCreate")
+        Log.w("NotificationsFragment: ", "onCreate")
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        Log.w("Fragment A: ", "onActivityCreated")
+        Log.w("NotificationsFragment: ", "onActivityCreated")
     }
 
     override fun onPause() {
         super.onPause()
-        Log.w("Fragment A: ", "onPause")
+        Log.w("NotificationsFragment: ", "onPause")
     }
 
     override fun onStop() {
         super.onStop()
-        Log.w("Fragment A: ", "onStop")
+        Log.w("NotificationsFragment: ", "onStop")
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        Log.w("Fragment A: ", "onDestroyView")
+        Log.w("NotificationsFragment: ", "onDestroyView")
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.w("Fragment A: ", "onDestroy")
+        Log.w("NotificationsFragment: ", "onDestroy")
     }
 }

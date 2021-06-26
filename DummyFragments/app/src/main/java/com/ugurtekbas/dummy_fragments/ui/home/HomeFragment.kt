@@ -16,10 +16,15 @@ class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
 
+    companion object {
+        val TAG = HomeFragment::class.simpleName
+        fun newInstant() = HomeFragment()
+    }
+
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         homeViewModel =
                 ViewModelProvider(this).get(HomeViewModel::class.java)
@@ -29,42 +34,42 @@ class HomeFragment : Fragment() {
             textView.text = it
         })
 
-        Log.w("Fragment B: ", "onCreateView")
+        Log.w("HomeFragment: ", "onCreateView")
         return root
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        Log.w("Fragment B: ", "onAttach")
+        Log.w("HomeFragment: ", "onAttach")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.w("Fragment B: ", "onCreate")
+        Log.w("HomeFragment: ", "onCreate")
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        Log.w("Fragment B: ", "onActivityCreated")
+        Log.w("HomeFragment: ", "onActivityCreated")
     }
 
     override fun onPause() {
         super.onPause()
-        Log.w("Fragment B: ", "onPause")
+        Log.w("HomeFragment: ", "onPause")
     }
 
     override fun onStop() {
         super.onStop()
-        Log.w("Fragment B: ", "onStop")
+        Log.w("HomeFragment: ", "onStop")
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        Log.w("Fragment B: ", "onDestroyView")
+        Log.w("HomeFragment: ", "onDestroyView")
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.w("Fragment B: ", "onDestroy")
+        Log.w("HomeFragment: ", "onDestroy")
     }
 }
