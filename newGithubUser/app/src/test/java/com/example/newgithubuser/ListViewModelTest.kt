@@ -1,8 +1,6 @@
 package com.example.newgithubuser
 
-import android.view.View
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.Observer
 import com.example.newgithubuser.domain.GetReposUseCase
 import com.example.newgithubuser.domain.RepoItem
 import com.example.newgithubuser.presentation.ui.ListViewModel
@@ -10,9 +8,7 @@ import com.example.newgithubuser.presentation.ui.ViewEvent
 import com.example.newgithubuser.presentation.ui.ViewState
 import io.reactivex.Completable
 import io.reactivex.Observable
-import io.reactivex.Single
 import junit.framework.Assert.*
-import okhttp3.Response
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -22,8 +18,6 @@ import org.mockito.kotlin.any
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
-import java.util.concurrent.CountDownLatch
-import java.util.concurrent.TimeUnit
 
 class ListViewModelTest {
 
@@ -52,8 +46,6 @@ class ListViewModelTest {
     })
 
     private val scheduleProvider = TestSchedulerProvider()
-    private val observer: Observer<ViewState> = mock()
-    private val eventObserver: Observer<ViewEvent> = mock()
     private lateinit var viewModel: ListViewModel
 
     @Before
@@ -91,16 +83,6 @@ class ListViewModelTest {
 
         viewModel.loadMore()
         assertEquals(expected, viewModel.viewEvent.getOrAwaitValue())
-        /*
-        viewModel.liveDataRepoList.observeForever(observer)
-        val error = Throwable("Error happened")
-
-        viewModel.loadMore()
-        getRepoUseCase.getNextPage(any()).test().assertError(error)
-        //assertEquals(Response.Error(error), viewModel.liveDataRepoList.value)
-
-        verify(observer).onChanged(Response.Error(error))
-        */
     }
 
     @Test
