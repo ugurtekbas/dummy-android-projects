@@ -7,6 +7,7 @@ import dagger.Subcomponent
 @Subcomponent(modules = [ListModule::class, ViewModelModule::class])
 interface ListComponent {
 
+    // This is for AppComponent to know how to create ListComponent
     @Subcomponent.Factory
     interface Factory {
         fun create(): ListComponent

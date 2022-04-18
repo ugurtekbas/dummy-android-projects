@@ -1,30 +1,38 @@
 package com.example.newgithubuser
 
+import android.view.View
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.example.newgithubuser.domain.GetReposUseCase
 import com.example.newgithubuser.domain.RepoItem
 import com.example.newgithubuser.presentation.ui.ListViewModel
+import com.example.newgithubuser.presentation.ui.ViewEvent
+import com.example.newgithubuser.presentation.ui.ViewState
+import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 import junit.framework.Assert.*
+import okhttp3.Response
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
+import org.mockito.Mockito.*
+import org.mockito.kotlin.any
+import org.mockito.kotlin.doReturn
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.whenever
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.TimeUnit
 
 class ListViewModelTest {
-    /*
+
     @get:Rule
     val rule: TestRule = InstantTaskExecutorRule()
 
     @Rule
     @JvmField
     var testSchedulerRule = ImmediateSchedulerRule()
-
-    /*
-    val rule: TestRule = ImmediateSchedulerRule()
-     */
 
     private val repoList = listOf(
         RepoItem(
@@ -38,37 +46,31 @@ class ListViewModelTest {
         )
     )
 
-    private val getRepoUseCase: GetReposUseCase = (mock() {
+    private val getRepoUseCase: GetReposUseCase = (mock {
         on { getCurrentRepos() } doReturn Observable.just(repoList)
-        on { getNextPage(any()) } doReturn Single.just(repoList)
+        on { getNextPage(any()) } doReturn Completable.complete()
     })
 
     private val scheduleProvider = TestSchedulerProvider()
-    private val observer: Observer<Response> = mock()
+    private val observer: Observer<ViewState> = mock()
+    private val eventObserver: Observer<ViewEvent> = mock()
     private lateinit var viewModel: ListViewModel
 
     @Before
     fun setUp() {
-        viewModel = ListViewModel(
-            getRepoUseCase,
-            scheduleProvider
-        )
-        viewModel.liveDataRepoList.observeForever(observer)
-    }
-
-
-    @Test
-    fun testNull() {
-        assertNotNull(viewModel.liveDataRepoList)
-
-        assertTrue(viewModel.liveDataRepoList.hasObservers())
+        viewModel = ListViewModel(getRepoUseCase,scheduleProvider)
     }
 
     @Test
-    fun `when live data value is changed should observe right response`() {
-        viewModel.liveDataRepoList.value = Response.Success(repoList)
+    fun `when ViewModel is initiated should get repolist (because of init function)`() {
+        val expected = ViewState(shouldShowLoading = false, repoList = repoList)
 
-        verify(observer).onChanged(Response.Success(repoList))
+        assertEquals(expected, viewModel.viewState.getOrAwaitValue())
+    }
+
+    @Test
+    fun `should invoke usecase method at initialize, only once`() {
+        verify(getRepoUseCase, times(1)).getCurrentRepos()
     }
 
     @Test
@@ -84,12 +86,15 @@ class ListViewModelTest {
 
     @Test
     fun `when load more is failed should pass error response`() {
-        LiveDataTestUtil.getValue(viewModel.liveDataRepoList)
+        whenever(getRepoUseCase.getNextPage(any())).thenReturn(Completable.error(Throwable()))
+        val expected = ViewEvent.ShowErrorMessage("HEY")
 
+        viewModel.loadMore()
+        assertEquals(expected, viewModel.viewEvent.getOrAwaitValue())
         /*
         viewModel.liveDataRepoList.observeForever(observer)
         val error = Throwable("Error happened")
-        whenever(getRepoUseCase.getNextPage(any())).thenReturn(Single.error(error))
+
         viewModel.loadMore()
         getRepoUseCase.getNextPage(any()).test().assertError(error)
         //assertEquals(Response.Error(error), viewModel.liveDataRepoList.value)
@@ -97,5 +102,12 @@ class ListViewModelTest {
         verify(observer).onChanged(Response.Error(error))
         */
     }
-     */
+
+    @Test
+    fun `a testDeney`() {
+        val viewModel2 = ListViewModel(getRepoUseCase,scheduleProvider)
+        viewModel2.deneyiDegistir("Hey hey")
+
+        assertEquals(viewModel2.testDeney.getOrAwaitValue(), "Hey hey")
+    }
 }

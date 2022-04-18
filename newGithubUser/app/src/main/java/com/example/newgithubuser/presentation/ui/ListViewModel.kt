@@ -9,6 +9,7 @@ import com.example.newgithubuser.domain.RepoItem
 import com.example.newgithubuser.presentation.ui.base.BaseViewModel
 import com.example.newgithubuser.util.SchedulerProvider
 import com.example.newgithubuser.util.StringResourceProvider
+import io.reactivex.Single
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -25,8 +26,18 @@ sealed class ViewEvent {
 class ListViewModel @Inject constructor(
     private val getReposUseCase: GetReposUseCase,
     private val schedulerProvider: SchedulerProvider,
-    private val stringProvider: StringResourceProvider
+    //private val stringProvider: StringResourceProvider
 ) : BaseViewModel() {
+
+    val testDeney = MutableLiveData<String>()
+    fun deneyiDegistir(t: String) {
+        addDisposable(
+            Single.just(t).subscribeOn(schedulerProvider.uiScheduler()).subscribe { response ->
+                testDeney.value = response
+            }
+        )
+
+    }
 
     private var currentViewState = ViewState(shouldShowLoading = true)
     private val _viewState = MutableLiveData<ViewState>().apply {
@@ -55,28 +66,24 @@ class ListViewModel @Inject constructor(
                     { response ->
                         Timber.w("HEY HEY-ViewModel-onsuccess - %s", response.size)
                         if (response.isEmpty()) {
-                            _viewState.postValue(
-                                currentViewState.copy(
-                                    shouldShowLoading = true
-                                )
+                            _viewState.value = currentViewState.copy(
+                                shouldShowLoading = true
                             )
                             onLoad()
                         } else {
-                            _viewState.postValue(
+                            _viewState.value =
                                 currentViewState.copy(
                                     repoList = response,
                                     shouldShowLoading = false
                                 )
-                            )
                         }
                     },
                     { error ->
                         Timber.w("HEY HEY-ViewModel-onerror - %s", error.message)
-                        _viewEvent.postValue(
+                        _viewEvent.value =
                             ViewEvent.ShowErrorMessage(
-                                message = stringProvider.get(R.string.generic_error)
+                                message = "HEY" //stringProvider.get(R.string.generic_error)
                             )
-                        )
                     }
                 )
         )
@@ -91,15 +98,24 @@ class ListViewModel @Inject constructor(
             getReposUseCase.getNextPage(page++)
                 .subscribeOn(schedulerProvider.ioScheduler())
                 .observeOn(schedulerProvider.uiScheduler())
-                .doOnError {error ->
+                /*.doOnError { error ->
                     Timber.w("HEY HEY-onLoad-ERROR- %s", error.message)
                     _viewEvent.postValue(
                         ViewEvent.ShowErrorMessage(
-                            message = stringProvider.get(R.string.generic_error)
+                            message = "HEY" //stringProvider.get(R.string.generic_error)
                         )
                     )
-                }
-                .subscribe()
+                }*/
+                .subscribe(
+                    {  /*Completed*/ },
+                    { e ->
+                        _viewEvent.postValue(
+                            ViewEvent.ShowErrorMessage(
+                                message = "HEY" //stringProvider.get(R.string.generic_error)
+                            )
+                        )
+                    }
+                )
         )
     }
 }

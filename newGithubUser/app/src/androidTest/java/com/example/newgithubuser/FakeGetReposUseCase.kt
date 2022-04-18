@@ -1,12 +1,16 @@
 package com.example.newgithubuser
 
+import com.example.newgithubuser.data.DataRepository
+import com.example.newgithubuser.domain.GetReposUseCase
 import com.example.newgithubuser.domain.RepoItem
+import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
 import io.reactivex.Single
 import io.reactivex.SingleEmitter
+import javax.inject.Singleton
 
-class FakeGetReposUseCase {
+class FakeDataRepo : DataRepository {
     private val firstItem = RepoItem(
         id = 1,
         name = "John",
@@ -26,9 +30,17 @@ class FakeGetReposUseCase {
         url = "url"
     )
     private val repoList = listOf(firstItem, secondItem)
-    fun getThat() : Observable<List<RepoItem>> {
+
+    override fun getCachedRepos(): Observable<List<RepoItem>> {
         return Observable.create<List<RepoItem>> { emitter: ObservableEmitter<List<RepoItem>> ->
             emitter.onNext(repoList)
         }
     }
+
+    override fun requestReposOnNextPage(page: Int): Completable = Completable.complete()
+}
+
+@Singleton
+class FakeGetReposUseCase : GetReposUseCase(FakeDataRepo()) {
+
 }

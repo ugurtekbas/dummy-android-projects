@@ -10,7 +10,7 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 @ActivityScope
-class GetReposUseCase @Inject constructor(
+open class GetReposUseCase @Inject constructor(
     private val repository: DataRepository
 ) {
     fun getNextPage(page: Int) = repository.requestReposOnNextPage(page)

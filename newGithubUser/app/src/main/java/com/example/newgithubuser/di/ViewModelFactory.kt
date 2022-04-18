@@ -51,7 +51,7 @@ class ViewModelModule {
         return ListViewModel(
             getReposUseCase,
             schedulerProvider,
-            stringProvider
+            //stringProvider
         )
     }
 }

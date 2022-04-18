@@ -26,12 +26,12 @@ class MainActivityTest {
 
     @Before
     fun setUp() {
-        //val instrumentation = InstrumentationRegistry.getInstrumentation()
-        //val app = instrumentation.targetContext.applicationContext as NewGithubUserApplication
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        //val app = instrumentation.targetContext.applicationContext as TestNewGithubUserApplication
+        //TestAppComponent.inject(this)
+        /*Dagger.factory().create(app)
 
-        //Dagger.factory().create(app)
-
-        /*app.appComponent = TestAppComponent.cre
+        app.appComponent = TestAppComponent.cre
         val testComponent = DaggerTestAppComponent.builder()
             .fakeApplicationModule(FakeApplicationModule(mockUserRepository))
             .build()
