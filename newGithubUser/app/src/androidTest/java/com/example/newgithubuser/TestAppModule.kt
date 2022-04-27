@@ -32,7 +32,7 @@ class TestAppModule {
         return ListViewModel(
             usecase,
             schedulerProvider,
-            stringProvider
+            //stringProvider
         )
     }
 }

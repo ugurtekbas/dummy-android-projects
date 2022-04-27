@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.newgithubuser.R
 import com.example.newgithubuser.domain.GetReposUseCase
 import com.example.newgithubuser.domain.RepoItem
+import com.example.newgithubuser.domain.UseCaseInterace
 import com.example.newgithubuser.presentation.ui.base.BaseViewModel
 import com.example.newgithubuser.util.SchedulerProvider
 import com.example.newgithubuser.util.StringResourceProvider
@@ -24,7 +25,7 @@ sealed class ViewEvent {
 }
 
 class ListViewModel @Inject constructor(
-    private val getReposUseCase: GetReposUseCase,
+    private val getReposUseCase: UseCaseInterace,
     private val schedulerProvider: SchedulerProvider,
     //private val stringProvider: StringResourceProvider
 ) : BaseViewModel() {

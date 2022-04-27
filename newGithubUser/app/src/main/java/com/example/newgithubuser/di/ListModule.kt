@@ -8,6 +8,7 @@ import com.example.newgithubuser.data.local.LocalDataResource
 import com.example.newgithubuser.data.local.RepoDatabase
 import com.example.newgithubuser.data.remote.RemoteDataResource
 import com.example.newgithubuser.domain.GetReposUseCase
+import com.example.newgithubuser.domain.UseCaseInterace
 import com.example.newgithubuser.presentation.ui.utils.ImageService
 import com.example.newgithubuser.util.AppSchedulerProvider
 import com.example.newgithubuser.util.SchedulerProvider

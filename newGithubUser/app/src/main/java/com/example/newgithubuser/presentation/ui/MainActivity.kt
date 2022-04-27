@@ -50,6 +50,7 @@ class MainActivity : AppCompatActivity() {
             .get(ListViewModel::class.java)
 
         val recLayoutManager = LinearLayoutManager(this)
+
         binding.repoList.apply {
             layoutManager = recLayoutManager
             binding.repoList.setHasFixedSize(true)
