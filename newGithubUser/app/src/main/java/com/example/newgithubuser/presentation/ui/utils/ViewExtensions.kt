@@ -11,5 +11,5 @@ fun View.show() {
 
 fun View.hide() {
     if (parent == null) return
-    visibility = View.VISIBLE
+    visibility = View.GONE
 }

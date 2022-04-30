@@ -13,12 +13,9 @@ import javax.inject.Singleton
 
 class FakeDataRepo : DataRepository {
 
-    companion object {
-        const val JOES_REPO = "Joes Repo"
-    }
     private val firstItem = RepoItem(
         id = 1,
-        name = "John",
+        name = "Johnny Cash",
         description = "Tester name",
         ownerLogin = "true",
         profilePicture = "profile-url",
@@ -27,7 +24,7 @@ class FakeDataRepo : DataRepository {
     )
     private val secondItem = RepoItem(
         id = 2,
-        name = JOES_REPO,
+        name = "Joe Pelo",
         description = "Second Tester name",
         ownerLogin = "true",
         profilePicture = "profile-url",
@@ -51,4 +48,10 @@ class FakeGetReposUseCase : UseCaseInterace {
 
     override fun getNextPage(page: Int) = fakeRepository.requestReposOnNextPage(1)
     override  fun getCurrentRepos() = fakeRepository.getCachedRepos()
+}
+
+@Singleton
+class EmptyGetReposUseCase : UseCaseInterace {
+    override fun getNextPage(page: Int) = Completable.complete()
+    override fun getCurrentRepos() = Observable.just(emptyList<RepoItem>())
 }

@@ -2,6 +2,7 @@ package com.example.newgithubuser.di
 
 import android.content.Context
 import androidx.room.Room
+import com.example.newgithubuser.data.DataRepository
 import com.example.newgithubuser.data.RepoDataRepository
 import com.example.newgithubuser.data.RepoItemMapper
 import com.example.newgithubuser.data.local.LocalDataResource
@@ -20,12 +21,14 @@ class ListModule {
 
     @ActivityScope
     @Provides
-    fun provideRemoteUseCase(repository: RepoDataRepository) =
+    fun provideRemoteUseCase(repository: RepoDataRepository):UseCaseInterace =
         GetReposUseCase(repository)
 
     @ActivityScope
     @Provides
-    fun provideRepository(remoteDataSource: RemoteDataResource, localDatasource: LocalDataResource, mapper: RepoItemMapper) =
+    fun provideRepository(
+        remoteDataSource: RemoteDataResource, localDatasource: LocalDataResource, mapper: RepoItemMapper
+    ): DataRepository =
         RepoDataRepository(remoteDataSource, localDatasource, mapper)
 
     @ActivityScope

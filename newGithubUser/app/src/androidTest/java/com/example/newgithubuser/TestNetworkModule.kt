@@ -1,6 +1,5 @@
 package com.example.newgithubuser
 
-import com.example.newgithubuser.FakeDataRepo.Companion.JOES_REPO
 import com.example.newgithubuser.data.remote.GithubApi
 import com.example.newgithubuser.data.remote.OwnerResponse
 import com.example.newgithubuser.data.remote.RepoResponse
@@ -35,16 +34,16 @@ class TestGithubApiImp : GithubApi {
     // Actually this is not needed because FakeGetReposUseCase is already returning a result
     private val firstItem = RepoResponse(
         id = 1,
-        name = "John",
-        description = "Tester name",
+        name = "Ahmet Keser",
+        description = "Dokuman diyor ama",
         owner = OwnerResponse("Login", "avatar_url", "html_url"),
         url = "url",
         fork = true
     )
     private val secondItem = RepoResponse(
         id = 2,
-        name = JOES_REPO,
-        description = "Second Tester name",
+        name = "Mehmet Caner",
+        description = "Bakalim neymil bu",
         owner = OwnerResponse("Login", "avatar_url", "html_url"),
         url = "url",
         fork = false
